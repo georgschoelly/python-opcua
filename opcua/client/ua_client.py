@@ -10,7 +10,6 @@ from functools import partial
 
 from opcua import ua
 from opcua.common import utils
-from opcua.common.uaerrors import UaError
 
 
 class UASocketClient(object):
@@ -92,10 +91,10 @@ class UASocketClient(object):
         while not self._do_stop:
             try:
                 self._receive()
-            except ua.utils.SocketClosedException:
+            except utils.SocketClosedException:
                 self.logger.info("Socket has closed connection")
                 break
-            except UaError:
+            except ua.UaError:
                 self.logger.exception("Protocol Error")
         self.logger.info("Thread ended")
 
